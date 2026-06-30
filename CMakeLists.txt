@@ -75,7 +75,8 @@ add_custom_target(samples ALL
                           ${CMAKE_CURRENT_SOURCE_DIR}/build/perf_event_array.o
                           ${CMAKE_CURRENT_SOURCE_DIR}/build/sockmap.o
                           ${CMAKE_CURRENT_SOURCE_DIR}/build/global_func.o
-                          ${CMAKE_CURRENT_SOURCE_DIR}/build/bpf_loop_helper.o)
+                          ${CMAKE_CURRENT_SOURCE_DIR}/build/bpf_loop_helper.o
+                          ${CMAKE_CURRENT_SOURCE_DIR}/build/map_sequential_lookup_unsafe.o)
 
 # We use custom commands here so that the same command will be used on
 # Linux and Windows (where cmake would normally use cl instead of clang).
@@ -291,3 +292,7 @@ add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/build/global_func.o
 add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/build/bpf_loop_helper.o
                    DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/bpf_loop_helper.c
                    COMMAND clang -g -target bpf -Wall -O2 -I ${libbpf_SOURCE_DIR}/src ${BPF_EXTRA_INCLUDES} -c ${CMAKE_CURRENT_SOURCE_DIR}/src/bpf_loop_helper.c -o ${CMAKE_CURRENT_SOURCE_DIR}/build/bpf_loop_helper.o)
+
+add_custom_command(OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/build/map_sequential_lookup_unsafe.o
+                   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/map_sequential_lookup_unsafe.c
+                   COMMAND clang -g -target bpf -Wall -O2 -I ${libbpf_SOURCE_DIR}/src ${BPF_EXTRA_INCLUDES} -c ${CMAKE_CURRENT_SOURCE_DIR}/src/map_sequential_lookup_unsafe.c -o ${CMAKE_CURRENT_SOURCE_DIR}/build/map_sequential_lookup_unsafe.o)
